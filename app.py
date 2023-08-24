@@ -86,7 +86,7 @@ def main():
 
     st.header("Chat with multiple PDFs :books:")
     user_question = st.text_input("Ask a question about your documents:")
-    if user_question:
+    if user_question and st.session_state.conversation is not None:
         handle_userinput(user_question)
 
     with st.sidebar:
