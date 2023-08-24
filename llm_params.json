@@ -1,0 +1,6 @@
+{
+    "model_path":"models/wizardlm-1.0-uncensored-llama2-13b.ggmlv3.q2_K.bin",
+    "n_gpu_layers":33,
+    "n_ctx":2048,
+    "f16_kv":true
+}

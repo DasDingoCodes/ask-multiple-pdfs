@@ -1,3 +1,5 @@
+import json
+import logging
 import streamlit as st
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
@@ -9,8 +11,6 @@ from langchain.llms import LlamaCpp
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from htmlTemplates import css, bot_template, user_template
-
-import logging
 
 
 def get_pdf_text(pdf_docs):
@@ -39,11 +39,10 @@ def get_vectorstore(text_chunks):
 def get_conversation_chain(vectorstore):
     callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
     if "llm" not in st.session_state:
+        with open("llm_params.json") as f:
+            llm_params = json.load(f)
         st.session_state.llm = LlamaCpp(
-            model_path="models/wizardlm-1.0-uncensored-llama2-13b.ggmlv3.q2_K.bin",
-            n_gpu_layers=25,
-            n_ctx=2048,
-            f16_kv=True,
+            **llm_params,
             callback_manager=callback_manager,
             verbose=True
         )
