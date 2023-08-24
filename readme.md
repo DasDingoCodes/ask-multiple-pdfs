@@ -1,6 +1,8 @@
 # MultiPDF Chat App
 
-> You can find the tutorial for this project on [YouTube](https://youtu.be/dXxQ0LR-3Hg).
+This project is a fork of Alejandro AO's **MultiPDF Chat App** ([Youtube tutorial](https://youtu.be/dXxQ0LR-3Hg)). 
+The main difference is that it runs an LLM locally with GPU support instead of using OpenAIs services. 
+There are also some other smaller changes.
 
 ## Introduction
 ------------
@@ -9,15 +11,13 @@ The MultiPDF Chat App is a Python application that allows you to chat with multi
 ## How It Works
 ------------
 
-![MultiPDF Chat App Diagram](./docs/PDF-LangChain.jpg)
-
 The application follows these steps to provide responses to your questions:
 
 1. PDF Loading: The app reads multiple PDF documents and extracts their text content.
 
 2. Text Chunking: The extracted text is divided into smaller chunks that can be processed effectively.
 
-3. Language Model: The application utilizes a language model to generate vector representations (embeddings) of the text chunks.
+3. Language Model: The application utilizes a language model to generate vector representations (embeddings) of the text chunks (not the LLM used to generate the response).
 
 4. Similarity Matching: When you ask a question, the app compares it with the text chunks and identifies the most semantically similar ones.
 
@@ -25,25 +25,35 @@ The application follows these steps to provide responses to your questions:
 
 ## Dependencies and Installation
 ----------------------------
-To install the MultiPDF Chat App, please follow these steps:
+Requirements:
 
-1. Clone the repository to your local machine.
+ - CUBLAS/CUDA (https://developer.nvidia.com/cuda-downloads)
+ - CMake (https://cmake.org/download/)
+ - Environment with Python 3.10.12
 
-2. Install the required dependencies by running the following command:
+Installation instructions for Windows:
+
+1. Open Powershell (Anaconda Powershell if using Anaconda environment) 
+
+2. Set up variables:
+   ```
+   $env:CMAKE_ARGS = "-DLLAMA_CUBLAS=on"
+   $env:FORCE_CMAKE = 1
+   ```
+   Detailed instructions: https://github.com/abetlen/llama-cpp-python#installation-with-openblas--cublas--clblast--metal    
+   Alternative: https://python.langchain.com/docs/integrations/llms/llamacpp#installation-with-windows
+
+3. Install requirements:
    ```
    pip install -r requirements.txt
    ```
 
-3. Obtain an API key from OpenAI and add it to the `.env` file in the project directory.
-```commandline
-OPENAI_API_KEY=your_secrit_api_key
-```
 
 ## Usage
 -----
 To use the MultiPDF Chat App, follow these steps:
 
-1. Ensure that you have installed the required dependencies and added the OpenAI API key to the `.env` file.
+1. Ensure that you have installed the required dependencies.
 
 2. Run the `main.py` file using the Streamlit CLI. Execute the following command:
    ```
@@ -55,11 +65,3 @@ To use the MultiPDF Chat App, follow these steps:
 4. Load multiple PDF documents into the app by following the provided instructions.
 
 5. Ask questions in natural language about the loaded PDFs using the chat interface.
-
-## Contributing
-------------
-This repository is intended for educational purposes and does not accept further contributions. It serves as supporting material for a YouTube tutorial that demonstrates how to build this project. Feel free to utilize and enhance the app based on your own requirements.
-
-## License
--------
-The MultiPDF Chat App is released under the [MIT License](https://opensource.org/licenses/MIT).
