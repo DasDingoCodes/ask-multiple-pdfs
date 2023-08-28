@@ -1,7 +1,7 @@
 # MultiPDF Chat App
 
 This project is a fork of Alejandro AO's **MultiPDF Chat App** ([Youtube tutorial](https://youtu.be/dXxQ0LR-3Hg)). 
-The main difference is that it runs an LLM locally with GPU support instead of using OpenAIs services. 
+The main difference is that it runs an LLM locally with GPU support via LlangChain's LlamaCpp class instead of using OpenAIs services. 
 There are also some other smaller changes.
 
 ## Introduction
