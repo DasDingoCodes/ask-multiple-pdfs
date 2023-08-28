@@ -7,7 +7,7 @@ from langchain.vectorstores import FAISS
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
-from langchain.llms import LlamaCpp
+from langchain.llms import TextGen
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from htmlTemplates import css, bot_template, user_template
@@ -41,7 +41,7 @@ def get_conversation_chain(vectorstore):
     if "llm" not in st.session_state:
         with open("llm_params.json") as f:
             llm_params = json.load(f)
-        st.session_state.llm = LlamaCpp(
+        st.session_state.llm = TextGen(
             **llm_params,
             callback_manager=callback_manager,
             verbose=True
